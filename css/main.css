@@ -44,6 +44,23 @@ img {
   padding:10px;
 }
 
+.geo {
+	height: 200px;
+	width: 200px;
+	background-color: red;
+	position: relative;
+	left: 500px;
+}
+
+div#mapcanvas {
+  width: 180px !important;
+  height: 180px !important;
+}
+
+#canvas{ 
+  position:fixed;
+  z-index: -1000;
+}
 
 
 

@@ -11,22 +11,87 @@ $.ajax({
             var location = result.data[i].location;
 
             if (location){
-// '<div class="active item" data-url="'+ url +'" data-slide-number="0">'
-
 	            var appendElm = '<img src="' + url + '"/>'
-	            // var $div = $('<div class="item" data-url="'+ url +'" data-slide-number="0">');
-	            var $div = $('<div class="item" data-slide-number="'+[i]+'"></div>');
+	            var $div = $('<div class="item" data-slide-number="'+[i]+'">hello</div>');
+
+
+var $map = $('<div class="geo">"'+[i]+'"<h1>"'+ location.latitude +'"</h1><meta name="viewport" content=""/><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><article><p>Finding your location: <span id="status">checking...</span></p></article></div>');
+
+
+var $map = $('<div class="geo">"'+[i]+'"<h1>"'+ location.latitude +'"<div id="map"></div>');
+
+
+
 	            var cssUrl = 'url(' + url + ')'
 	            $div.addClass('photo');
 	            $div.css('background-image', cssUrl);
 	            $('.carousel-inner').append($div);
-	            // $($div).append(appendElm);
 	            $($div).append('<h1>" '+ location.latitude +'"</h1')[0];
+	            $($div).append($map)[0];
 
 
-	            $('#myCarousel').carousel({
-				  interval:false // remove interval for manual sliding
-				});
+
+				function getLocation()
+			    {
+			        if (navigator.geolocation)
+			        {
+			        navigator.geolocation.getCurrentPosition(showPosition,showError);
+			        }
+			    }
+
+			    function showPosition(position)
+			    {
+			        var latlon=location.latitude+","+location.longitude;
+
+			        var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
+			        +latlon+"&zoom=14&size=400x300&sensor=false";
+			        document.getElementById("map").innerHTML="<img src='"+img_url+"'>";
+			    }
+
+			    showPosition(location)
+
+			    function showError(error)
+			    {
+			        switch(error.code) 
+			        {
+			        case error.PERMISSION_DENIED:
+			          doc.innerHTML="Request for Geolocation denied by the user."
+			          break;
+			        case error.POSITION_UNAVAILABLE:
+			          doc.innerHTML="Unavailable location information."
+			          break;
+			        case error.TIMEOUT:
+			          doc.innerHTML="Location request timed out."
+			          break;
+			        case error.UNKNOWN_ERROR:
+			          doc.innerHTML="UNKNOWN_ERROR."
+			          break;
+			        }
+			    }
+
+
+			    getLocation();
+
+
+					function error(msg) {
+					  var s = document.querySelector('#status');
+					  s.innerHTML = typeof msg == 'string' ? msg : "failed";
+					  s.className = 'fail';
+					  
+					  // console.log(arguments);
+					}
+
+					if (navigator.geolocation) {
+					  navigator.geolocation.getCurrentPosition(success, error);
+					} else {
+					  error('not supported');
+					}
+
+
+
+
+
+
 
 				// when the carousel slides, load the ajax content
 				$('#myCarousel').on('slid', function (e) {
@@ -47,6 +112,8 @@ $.ajax({
           $('.item:nth-child(1)').addClass('active')
         }
       });
+
+
 
 
 
