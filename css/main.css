@@ -52,7 +52,7 @@ img {
 	left: 500px;
 }
 
-div#mapcanvas {
+div#mapPlaceholder {
   width: 180px !important;
   height: 180px !important;
 }
