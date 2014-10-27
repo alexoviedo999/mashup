@@ -12,7 +12,7 @@ $(function() {
 	            var appendElm = '<img src="' + url + '"/>'
 	            var $div = $('<div class="item" data-slide-number="'+[i]+'">hello</div>');
 
-				var $map = $('<div class="geo">"'+[i]+'"<h1>"'+ location.latitude +'"<div id="mapPlaceholder"></div>');
+				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div id="mapPlaceholder"></div>');
 
 	            var cssUrl = 'url(' + url + ')'
 	            $div.addClass('photo');

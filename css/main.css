@@ -53,8 +53,8 @@ img {
 }
 
 div#mapPlaceholder {
-  width: 180px !important;
-  height: 180px !important;
+  width: 300px !important;
+  height: 300px !important;
 }
 
 #canvas{ 
