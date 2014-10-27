@@ -1,5 +1,4 @@
 $(function() {
-	var locationPicArray = [];
 	$.ajax({
         url: 'https://api.instagram.com/v1/media/popular?client_id=03a834da5a654e7a96d47ec72e1043f0',
         dataType: 'jsonp',
@@ -8,10 +7,10 @@ $(function() {
             console.log(result);
             var location = result.data[i].location;
 
-            if (location!=null){
+            if (location!==null){
             	var url = result.data[i].images.standard_resolution.url;
             	var currentPicObj = result.data[i];
-            	currentPicObj.cssUrl = 'url(' + url + ')'
+            	currentPicObj.cssUrl = 'url(' + url + ')';
 	            currentPicObj.$div = $('<div class="item" data-slide-number="'+[i]+'"></div>');
 	            var mapId = "mapPlaceholder"+[i];
 				var $map = $('<div class="geo"><h4>Latitude:"'+ location.latitude +'"</h4><h4>Longitude:"'+ location.longitude +'"</h4><div class="map-block" id="'+mapId+'"></div>');
@@ -47,7 +46,7 @@ $(function() {
 		            });
 	            }
 
-            	showCurrentLocation(location)
+            	showCurrentLocation(location);
 
 				// when the carousel slides, load the ajax content
 				$('#myCarousel').on('slid', function (e) {
@@ -69,7 +68,7 @@ $(function() {
             }
           }
           result.data.splice(5,result.data.length - 5);
-          $('.item:nth-child(1)').addClass('active')
+          $('.item:nth-child(1)').addClass('active');
         }
     });
 
