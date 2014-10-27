@@ -4,7 +4,7 @@ $(function() {
         url: 'https://api.instagram.com/v1/media/popular?client_id=03a834da5a654e7a96d47ec72e1043f0',
         dataType: 'jsonp',
         success: function(result){
-          for (var i = 0; i < 3; i++){
+          for (var i = 0; i < result.data.length; i++){
             var url = result.data[i].images.standard_resolution.url;
             var location = result.data[i].location;
 
@@ -12,9 +12,9 @@ $(function() {
 	            var appendElm = '<img src="' + url + '"/>'
 	            var $div = $('<div class="item" data-slide-number="'+[i]+'">hello</div>');
 	            var mapId = "mapPlaceholder"+[i];
-				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div id="'+mapId+'"></div>');
-				 $($div).append($map)[0];
+				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div class="map-block" id="'+mapId+'"></div>');
 	            var cssUrl = 'url(' + url + ')'
+	            $($div).append($map);
 	            $div.addClass('photo');
 	            $div.css('background-image', cssUrl);
 	            $('.carousel-inner').append($div);
@@ -63,7 +63,7 @@ $(function() {
 				});
 			  
 			});
-
+				if ($('.item').length === 3) break;
             }
           }
           $('.item:nth-child(1)').addClass('active')

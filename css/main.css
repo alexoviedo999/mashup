@@ -52,25 +52,12 @@ img {
 	left: 500px;
 }
 
-div#mapPlaceholder0 {
-  width: 300px !important;
-  height: 300px !important;
+.map-block {
+	width: 300px !important;
+  	height: 300px !important;
 }
 
-div#mapPlaceholder1 {
-  width: 300px !important;
-  height: 300px !important;
-}
 
-div#mapPlaceholder2 {
-  width: 300px !important;
-  height: 300px !important;
-}
-
-#canvas{ 
-  position:fixed;
-  z-index: -1000;
-}
 
 
 
