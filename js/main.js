@@ -4,22 +4,22 @@ $(function() {
         url: 'https://api.instagram.com/v1/media/popular?client_id=03a834da5a654e7a96d47ec72e1043f0',
         dataType: 'jsonp',
         success: function(result){
-          for (var i = 0; i < 4; i++){
+          for (var i = 0; i < 3; i++){
             var url = result.data[i].images.standard_resolution.url;
             var location = result.data[i].location;
 
             if (location){
 	            var appendElm = '<img src="' + url + '"/>'
 	            var $div = $('<div class="item" data-slide-number="'+[i]+'">hello</div>');
-
-				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div id="mapPlaceholder"></div>');
-
+	            var mapId = "mapPlaceholder"+[i];
+				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div id="'+mapId+'"></div>');
+				 $($div).append($map)[0];
 	            var cssUrl = 'url(' + url + ')'
 	            $div.addClass('photo');
 	            $div.css('background-image', cssUrl);
 	            $('.carousel-inner').append($div);
-	            $($div).append('<h1>" '+ location.latitude +'"</h1')[0];
-	            $($div).append($map)[0];
+	            // $($div).append('<h1>" '+ location.latitude +'"</h1')[0];
+	            
 
 			function showCurrentLocation(position) {
                 var latitude = location.latitude;
@@ -35,7 +35,7 @@ $(function() {
 
 	            //create the map, and place it in the HTML map div
 	            map = new google.maps.Map(
-	            document.getElementById("mapPlaceholder"), mapOptions
+	            document.getElementById(mapId), mapOptions
 	            );
 
 	            //place the initial marker
@@ -47,6 +47,7 @@ $(function() {
             }
 
             showCurrentLocation(location)
+
 
 			// when the carousel slides, load the ajax content
 			$('#myCarousel').on('slid', function (e) {

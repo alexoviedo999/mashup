@@ -45,14 +45,24 @@ img {
 }
 
 .geo {
-	height: 200px;
+	height: 50px;
 	width: 200px;
-	background-color: red;
+	background-color: lightgray;
 	position: relative;
 	left: 500px;
 }
 
-div#mapPlaceholder {
+div#mapPlaceholder0 {
+  width: 300px !important;
+  height: 300px !important;
+}
+
+div#mapPlaceholder1 {
+  width: 300px !important;
+  height: 300px !important;
+}
+
+div#mapPlaceholder2 {
   width: 300px !important;
   height: 300px !important;
 }
