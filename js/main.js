@@ -69,7 +69,6 @@ $(function() {
             }
           }
           result.data.splice(5,result.data.length - 5);
-          // console.log(result);
           $('.item:nth-child(1)').addClass('active')
         }
     });
