@@ -10,9 +10,9 @@ $(function() {
 
             if (location){
 	            var appendElm = '<img src="' + url + '"/>'
-	            var $div = $('<div class="item" data-slide-number="'+[i]+'">hello</div>');
+	            var $div = $('<div class="item" data-slide-number="'+[i]+'"></div>');
 	            var mapId = "mapPlaceholder"+[i];
-				var $map = $('<div class="geo">"'+[i]+'"<h4>"'+ location.latitude +'"</h4><div class="map-block" id="'+mapId+'"></div>');
+				var $map = $('<div class="geo"><h4>Latitude:"'+ location.latitude +'"</h4><h4>Longitude:"'+ location.longitude +'"</h4><div class="map-block" id="'+mapId+'"></div>');
 	            var cssUrl = 'url(' + url + ')'
 	            $($div).append($map);
 	            $div.addClass('photo');
@@ -48,7 +48,6 @@ $(function() {
 
             showCurrentLocation(location)
 
-
 			// when the carousel slides, load the ajax content
 			$('#myCarousel').on('slid', function (e) {
 			  
@@ -63,7 +62,7 @@ $(function() {
 				});
 			  
 			});
-				if ($('.item').length === 3) break;
+				if ($('.item').length === 10) break;
             }
           }
           $('.item:nth-child(1)').addClass('active')
