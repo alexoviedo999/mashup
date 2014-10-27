@@ -48,13 +48,14 @@ img {
 	height: 75px;
 	width: 300px;
 	background-color: lightgray;
-	position: relative;
+	/*position: relative;*/
 	left: 500px;
 }
 
 .map-block {
 	width: 300px !important;
   	height: 300px !important;
+  	overflow: visible !important;
 }
 
 

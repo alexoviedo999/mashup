@@ -1,70 +1,75 @@
 $(function() {
-
+	var locationPicArray = [];
 	$.ajax({
         url: 'https://api.instagram.com/v1/media/popular?client_id=03a834da5a654e7a96d47ec72e1043f0',
         dataType: 'jsonp',
         success: function(result){
           for (var i = 0; i < result.data.length; i++){
-            var url = result.data[i].images.standard_resolution.url;
+            console.log(result);
             var location = result.data[i].location;
 
-            if (location){
-	            var appendElm = '<img src="' + url + '"/>'
-	            var $div = $('<div class="item" data-slide-number="'+[i]+'"></div>');
+            if (location!=null){
+            	var url = result.data[i].images.standard_resolution.url;
+            	var currentPicObj = result.data[i];
+            	currentPicObj.cssUrl = 'url(' + url + ')'
+	            currentPicObj.$div = $('<div class="item" data-slide-number="'+[i]+'"></div>');
 	            var mapId = "mapPlaceholder"+[i];
 				var $map = $('<div class="geo"><h4>Latitude:"'+ location.latitude +'"</h4><h4>Longitude:"'+ location.longitude +'"</h4><div class="map-block" id="'+mapId+'"></div>');
-	            var cssUrl = 'url(' + url + ')'
-	            $($div).append($map);
-	            $div.addClass('photo');
-	            $div.css('background-image', cssUrl);
-	            $('.carousel-inner').append($div);
-	            // $($div).append('<h1>" '+ location.latitude +'"</h1')[0];
-	            
+	            $(currentPicObj.$div).append($map);
+	            currentPicObj.$div.addClass('photo');
+	            currentPicObj.$div.css('background-image', currentPicObj.cssUrl);
+	            $('.carousel-inner').append(currentPicObj.$div);
+	    
 
-			function showCurrentLocation(position) {
-                var latitude = location.latitude;
-                var longitude = location.longitude;
-                var coords = new google.maps.LatLng(latitude, longitude);
 
-                var mapOptions = {
-	                zoom: 15,
-	                center: coords,
-	                mapTypeControl: true,
-	                mapTypeId: google.maps.MapTypeId.ROADMAP
-	            };
+				function showCurrentLocation(position) {
+	                var latitude = location.latitude;
+	                var longitude = location.longitude;
+	                var coords = new google.maps.LatLng(latitude, longitude);
 
-	            //create the map, and place it in the HTML map div
-	            map = new google.maps.Map(
-	            document.getElementById(mapId), mapOptions
-	            );
+	                var mapOptions = {
+		                zoom: 15,
+		                center: coords,
+		                mapTypeControl: true,
+		                mapTypeId: google.maps.MapTypeId.ROADMAP
+		            };
 
-	            //place the initial marker
-	            var marker = new google.maps.Marker({
-		            position: coords,
-		            map: map,
-		            title: "Current location!"
-	            });
-            }
+		            //create the map, and place it in the HTML map div
+		            map = new google.maps.Map(
+		            document.getElementById(mapId), mapOptions
+		            );
 
-            showCurrentLocation(location)
+		            //place the initial marker
+		            var marker = new google.maps.Marker({
+			            position: coords,
+			            map: map,
+			            title: "Current location!"
+		            });
+	            }
 
-			// when the carousel slides, load the ajax content
-			$('#myCarousel').on('slid', function (e) {
-			  
-				// get index of currently active item
-				var idx = $('#myCarousel .item.active').index();
-				// var url = $('.item.active').data('url');
+            	showCurrentLocation(location)
 
-				// ajax load from data-url
-			  	$('.item').html("wait...");
-				$('.item').load(url,function(result){
-				    $('#myCarousel').carousel(idx);  
+				// when the carousel slides, load the ajax content
+				$('#myCarousel').on('slid', function (e) {
+				  
+					// get index of currently active item
+					var idx = $('#myCarousel .item.active').index();
+					// var url = $('.item.active').data('url');
+
+					// ajax load from data-url
+				  	$('.item').html("wait...");
+					$('.item').load(url,function(result){
+					    $('#myCarousel').carousel(idx);  
+					});
+				  
 				});
-			  
-			});
-				if ($('.item').length === 10) break;
+            }
+            else {
+            	result.data.splice(i,1);
             }
           }
+          result.data.splice(5,result.data.length - 5);
+          // console.log(result);
           $('.item:nth-child(1)').addClass('active')
         }
     });
